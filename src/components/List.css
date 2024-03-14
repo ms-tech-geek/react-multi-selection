@@ -16,7 +16,9 @@
 
 .List__item--active {
   border: thick solid red;
-  border-radius: 100%;
+  border-radius: 25px;
+  opacity: 80%;
+  line-height: 50px;
 }
 
 .List__item--navy {

@@ -3,21 +3,25 @@ import { useState } from 'react';
 
 export const ListItemCard = (props) => {
   const [selectedCards, setSelectedCards] = useState({});
+
   const clickHandler = (item) => {
-    const currentSelectedCards = { ...selectedCards };
-    console.log(currentSelectedCards, item);
-    // const isSelected = currentSelectedCards[item] == true;
-    // if (!isSelected) {
-    //   // setSelectedCards({ ...selectedCards, item });
-    // } else {
-    //   console.log('need to delete the card from currentSelectedCards');
-    // }
+    setSelectedCards((currentSelectedCards) => {
+      const isSelected = !!currentSelectedCards[item.name];
+      if (isSelected) {
+        const { [item.name]: value, ...rest } = currentSelectedCards;
+        return rest;
+      } else {
+        return { ...currentSelectedCards, [item.name]: true };
+      }
+    });
   };
 
   return (
     <li
       key={props.data.name}
-      className={`List__item List__item--${props.data.color}`}
+      className={`List__item List__item--${props.data.color} ${
+        selectedCards[props.data.name] ? 'List__item--active' : ''
+      }`}
       onClick={() => clickHandler(props.data)}
     >
       {props.data.name}
